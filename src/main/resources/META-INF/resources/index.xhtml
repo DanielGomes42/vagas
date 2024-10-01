@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Controle de Agendamentos de Vagas</title>
+</h:head>
+
+<h:body id="body">
+	<h:form>
+		<h1>Controle de Agendamentos de Vagas</h1>
+
+		<h:panelGrid columns="1" cellpadding="5">
+
+			<p:panel header="Cadastro de Vagas">
+				<h:outputLabel value="Data de Início:" for="dataInicio"/>
+				<p:inputText id="dataInicio" value="#{vagaBean.dataInicio}" required="true"/>
+
+				<h:outputLabel value="Data de Término:" for="dataFim"/>
+				<p:inputText id="dataFim" value="#{vagaBean.dataFim}" required="true"/>
+
+				<h:outputLabel value="Quantidade de Vagas:" for="quantidade"/>
+				<p:inputText id="quantidade" value="#{vagaBean.quantidade}" required="true"/>
+
+				<p:commandButton value="Cadastrar Vaga" action="#{vagaBean.salvar}" update="@form"/>
+			</p:panel>
+
+			<p:panel header="Cadastro de Solicitantes">
+				<h:outputLabel value="Nome do Solicitante:" for="nomeSolicitante"/>
+				<p:inputText id="nomeSolicitante" value="#{solicitanteBean.nome}" required="true"/>
+
+				<p:commandButton value="Cadastrar Solicitante" action="#{solicitanteBean.salvar}" update="@form"/>
+			</p:panel>
+
+			<p:panel header="Cadastro de Agendamentos">
+				<h:outputLabel value="Data do Agendamento:" for="dataAgendamento"/>
+				<p:inputText id="dataAgendamento" value="#{agendamentoBean.data}" required="true"/>
+
+				<h:outputLabel value="Número do Agendamento:" for="numeroAgendamento"/>
+				<p:inputText id="numeroAgendamento" value="#{agendamentoBean.numero}" required="true"/>
+
+				<h:outputLabel value="Motivo do Agendamento:" for="motivoAgendamento"/>
+				<p:inputText id="motivoAgendamento" value="#{agendamentoBean.motivo}" required="true"/>
+
+				<h:outputLabel value="Solicitante:" for="solicitanteId"/>
+				<p:selectOneMenu id="solicitanteId" value="#{agendamentoBean.solicitanteId}" required="true">
+					<f:selectItems value="#{solicitanteBean.listaSolicitantes}" var="sol" itemLabel="#{sol.nome}" itemValue="#{sol.id}"/>
+				</p:selectOneMenu>
+
+				<h:outputLabel value="Vaga:" for="vagaId"/>
+				<p:selectOneMenu id="vagaId" value="#{agendamentoBean.vagaId}" required="true">
+					<f:selectItems value="#{vagaBean.listaVagas}" var="vaga" itemLabel="De #{vaga.dataInicio} até #{vaga.dataFim}" itemValue="#{vaga.id}"/>
+				</p:selectOneMenu>
+
+				<p:commandButton value="Cadastrar Agendamento" action="#{agendamentoBean.salvar}" update="@form"/>
+			</p:panel>
+
+			<p:panel header="Consulta de Agendamentos">
+				<h:outputLabel value="Data de Início:" for="consultaInicio"/>
+				<p:inputText id="consultaInicio" value="#{agendamentoBean.consultaInicio}" required="true"/>
+
+				<h:outputLabel value="Data de Término:" for="consultaFim"/>
+				<p:inputText id="consultaFim" value="#{agendamentoBean.consultaFim}" required="true"/>
+
+				<h:outputLabel value="Solicitante:" for="consultaSolicitante"/>
+				<p:selectOneMenu id="consultaSolicitante" value="#{agendamentoBean.consultaSolicitante}">
+					<f:selectItems value="#{solicitanteBean.listaSolicitantes}" var="sol" itemLabel="#{sol.nome}" itemValue="#{sol.id}"/>
+				</p:selectOneMenu>
+
+				<p:commandButton value="Consultar Agendamentos" action="#{agendamentoBean.consultar}" update="@form"/>
+			</p:panel>
+
+		</h:panelGrid>
+	</h:form>
+</h:body>
+</html>
